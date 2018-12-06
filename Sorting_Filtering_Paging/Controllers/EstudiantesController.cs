@@ -17,7 +17,7 @@ namespace Sorting_Filtering_Paging.Controllers
         private EstudianteContext db = new EstudianteContext();
 
         // GET: Estudiantes
-        public ActionResult Index(string sortOrder, string buscar, string currentFilter, int? page)
+        public ActionResult Index(string sortOrder, string buscar, string currentFilter, int? page, string BuscarPor)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "nombre_desc" : "";
@@ -35,10 +35,15 @@ namespace Sorting_Filtering_Paging.Controllers
 
             ViewBag.currentFilter = buscar;
 
-            var Estudiantes = from e in db.Estudiante select e;
+            var Estudiantes = from s in db.Estudiante select s;
             if (!String.IsNullOrEmpty(buscar))
             {
-                Estudiantes = Estudiantes.Where(s => s.nombreEstudiante.Contains(buscar));
+                
+                if (BuscarPor == "Nombre")
+                    Estudiantes = Estudiantes.Where(s => s.nombreEstudiante.Contains(buscar));
+                else if (BuscarPor == "Apellido")
+                    Estudiantes = Estudiantes.Where(s => s.apellidosEstudiante.Contains(buscar));
+                if (BuscarPor == null) BuscarPor = "";
             }
 
             switch (sortOrder)

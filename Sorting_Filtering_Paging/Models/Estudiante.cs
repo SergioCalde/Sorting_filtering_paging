@@ -28,4 +28,10 @@ namespace Sorting_Filtering_Paging.Models
         [DisplayName("Edad Estudiante")]
         public int edadEstudiante { get; set; }
     }
+
+    public enum BuscarPor
+    {
+        Nombre,
+        Apellido
+    }
 }
