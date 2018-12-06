@@ -1,0 +1,50 @@
+﻿@model Sorting_Filtering_Paging.Models.Estudiante
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Estudiante</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreEstudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreEstudiante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.apellidosEstudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.apellidosEstudiante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.correoEstudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.correoEstudiante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.edadEstudiante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.edadEstudiante)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.estudianteID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

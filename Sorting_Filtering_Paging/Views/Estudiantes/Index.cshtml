@@ -1,0 +1,67 @@
+﻿@model PagedList.IPagedList<Sorting_Filtering_Paging.Models.Estudiante>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css">
+
+@{
+    ViewBag.Title = "Estudiantes";
+}
+
+<h2>Estudiantes</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Encontrar por Nombre: @Html.TextBox("buscar", ViewBag.currentFilter as String)
+        <input type="submit" value="Buscar" />
+    </p>
+
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Nombre Estudiante", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter= ViewBag.currentFilter})
+        </th>
+        <th>
+            @Html.ActionLink("Apellido Estudiante", "Index", new { sortOrder = ViewBag.ApellidoSortParm, currentFilter = ViewBag.currentFilter})
+        </th>
+        <th>
+            Correo Estudiante
+        </th>
+        <th>
+            @Html.ActionLink("Edad Estudiante", "Index", new { sortOrder = ViewBag.EdadSortParm, currentFilter = ViewBag.currentFilter})
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombreEstudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.apellidosEstudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.correoEstudiante)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.edadEstudiante)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.estudianteID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.estudianteID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.estudianteID })
+        </td>
+    </tr>
+}
+
+</table>
+</br>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.currentSort, currentFilter = ViewBag.currentFilter}))
