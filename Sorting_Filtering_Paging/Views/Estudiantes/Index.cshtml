@@ -12,12 +12,12 @@
 
 @using (Html.BeginForm())
 {
-    <p>
-        Encontrar por: @Html.DropDownList("BuscarPor",
-                     new SelectList(Enum.GetValues(typeof(BuscarPor))),"----Buscar Por----", new { @id = "selectTipo", @class = "form-control"}) 
-        <br> @Html.TextBox("buscar", ViewBag.currentFilter as String, new { @id = "txtBuscar", @class = "form-control" }) <br>
-        <input type="submit" value="Buscar" id="btnBuscar"  class="btn-primary" />
-    </p>
+<p>
+    Encontrar por: @Html.DropDownList("BuscarPor",
+  new SelectList(Enum.GetValues(typeof(BuscarPor))),"----Buscar Por----", new { @id = "selectTipo", @class = "form-control"}) @*Crea el DropDownList llamando un Enum del controlador llamado BuscarPor*@
+<br> @Html.TextBox("buscar", ViewBag.currentFilter as String, new { @id = "txtBuscar", @class = "form-control" }) <br> @*Genera el text box para realizar la busqueda*@
+<input type="submit" value="Buscar" id="btnBuscar" class="btn-primary" /> @*Genera el boton de buscar*@
+</p>
 
 }
     <p>
@@ -63,14 +63,14 @@
 }
 
 </table>
-</br>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<br>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount @*Valida que existan páginas, si no muestra Pagina 0 de 0*@
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.currentSort, currentFilter = ViewBag.currentFilter}))
+    new { page, sortOrder = ViewBag.currentSort, currentFilter = ViewBag.currentFilter})) @*Muestra las paginas*@
 
 
-<script type="text/javascript">
+<script type="text/javascript"> //Encargado de ocultar el Textbox y el boton si el dropdownlist esta en el parametro predefinido 
     $(document).ready(function () {
 
         if ($("#selectTipo").val() === "") {

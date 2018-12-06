@@ -19,34 +19,34 @@ namespace Sorting_Filtering_Paging.Controllers
         // GET: Estudiantes
         public ActionResult Index(string sortOrder, string buscar, string currentFilter, int? page, string BuscarPor)
         {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "nombre_desc" : "";
+            ViewBag.CurrentSort = sortOrder; // ViewBag Encargado de guardar el parametro actual del orden Ya sea por nombre, apellido o edad
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "nombre_desc" : ""; // ViewBag encargado de guardar como se va a ordenar, va a validar si es Nulo y le va a asignar ""
             ViewBag.ApellidoSortParm = sortOrder == "apellido" ? "apellido_desc" : "apellido";
             ViewBag.EdadSortParm = sortOrder == "edad" ? "edad_desc" : "edad";
 
             if(buscar != null)
             {
-                page = 1;
+                page = 1; 
             }
             else
             {
-                buscar = currentFilter;
+                buscar = currentFilter; //ViewBag encargado de guardar el filtro que se utilizó 
             }
 
             ViewBag.currentFilter = buscar;
 
-            var Estudiantes = from s in db.Estudiante select s;
+            var Estudiantes = from s in db.Estudiante select s; //Va a realizar la busqueda de los caracteres que se digiten en el textbox
             if (!String.IsNullOrEmpty(buscar))
             {
                 
                 if (BuscarPor == "Nombre")
-                    Estudiantes = Estudiantes.Where(s => s.nombreEstudiante.Contains(buscar));
+                    Estudiantes = Estudiantes.Where(s => s.nombreEstudiante.Contains(buscar)); //Realiza la busqueda por Nombre
                 else if (BuscarPor == "Apellido")
-                    Estudiantes = Estudiantes.Where(s => s.apellidosEstudiante.Contains(buscar));
+                    Estudiantes = Estudiantes.Where(s => s.apellidosEstudiante.Contains(buscar)); //Realiza la busqueda por Apellido
                 if (BuscarPor == null) BuscarPor = "";
             }
 
-            switch (sortOrder)
+            switch (sortOrder) //Este Switch va a ser encargado de capturar como se debe acomodar la vista
             {
                 case "nombre_desc":
                     Estudiantes = Estudiantes.OrderByDescending(s => s.nombreEstudiante);
