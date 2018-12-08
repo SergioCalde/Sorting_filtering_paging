@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Context\EstudianteContext.cs" />
+    <Compile Include="Context\EstudianteIni.cs" />
     <Compile Include="Controllers\EstudiantesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
